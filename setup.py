@@ -22,7 +22,6 @@
 #  Relevant employers or funding agencies will be notified accordingly.
 
 import setuptools
-import packagit_
 
 NAME = "packagit"
 
