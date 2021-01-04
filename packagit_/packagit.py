@@ -42,12 +42,14 @@ def extract_version(txt):
     -------
 
     """
-    return txt.split(" = ")[1][1:-1]
+    return txt.split(" = ")[1][1:-2]
 
 
 def update_version(major, previous_version):
     """
     Increment version taking year/month of last commit into account.
+
+    Run it after having
 
     Usage:
         >>> update_version(0, "0.0912.3")  # major=0 year=09 month=12 minor=3
@@ -76,7 +78,8 @@ def update_version(major, previous_version):
 
     d = obj.head.object.committed_datetime
     minor = int(previous_version.split(".")[2]) + 1
-    tag = f"{major}.{str(d.year - 2000).rjust(2, '0')}{str(d.month).rjust(2, '0')}.{minor}"
+    version= f"{major}.{str(d.year - 2000).rjust(2, '0')}{str(d.month).rjust(2, '0')}.{minor}"
+    tag = f"v{version}"
     if tag in obj.tags:  # pragma: no cover
         raise Exception(f"Tag {tag} already exists!")
     obj.create_tag(tag, message=obj.head.object.message)
@@ -87,7 +90,5 @@ def update_version(major, previous_version):
         shutil.rmtree("/run/shm/packagit-remote")
         shutil.rmtree("/run/shm/packagit")
 
-    return tag
-
-
-update_version(0, "0.0912.3")
+    print(tag, "created.")
+    return version
