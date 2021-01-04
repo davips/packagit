@@ -24,7 +24,7 @@
 #  Relevant employers or funding agencies will be notified accordingly.
 import sys
 
-from packagit_.packagit import extract_version, update_version
+from packagit_.packagit import extract_version, update_version, create_tag
 
 if __name__ == "__main__":
     args = sys.argv
@@ -32,13 +32,20 @@ if __name__ == "__main__":
         print("Provide the major version number.\n\nUsage:\n\tpackagit 1")
         exit()
     major = args[1]
+    error = True
 
     with open("setup.py", "r") as f:
         txt = f.readlines()
     with open("setup.py", "w") as f:
         for l in txt:
             if "VERSION = " in l:
+                error = False
                 previous_version = extract_version(l)
-                tag = update_version(major, previous_version)
-                l = f'VERSION = "{tag}"\n'
+                version = update_version(major, previous_version)
+                l = f'VERSION = "{version}"\n'
             f.write(l)
+
+    if error:
+        raise Exception("Could not increment VERSION.")
+    tag = create_tag(version)
+    print(tag, "created and pushed. New setup.py committed and pushed.")

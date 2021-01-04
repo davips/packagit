@@ -49,8 +49,6 @@ def update_version(major, previous_version):
     """
     Increment version taking year/month of last commit into account.
 
-    Run it after having
-
     Usage:
         >>> update_version(0, "0.0912.3")  # major=0 year=09 month=12 minor=3
         '0.0912.4'
@@ -79,16 +77,24 @@ def update_version(major, previous_version):
     d = obj.head.object.committed_datetime
     minor = int(previous_version.split(".")[2]) + 1
     version= f"{major}.{str(d.year - 2000).rjust(2, '0')}{str(d.month).rjust(2, '0')}.{minor}"
-    tag = f"v{version}"
-    if tag in obj.tags:  # pragma: no cover
-        raise Exception(f"Tag {tag} already exists!")
-    obj.create_tag(tag, message=obj.head.object.message)
-    obj.remotes.origin.push(tag)
 
     # Doctest cleanup.
     if previous_version == "0.0912.3":
         shutil.rmtree("/run/shm/packagit-remote")
         shutil.rmtree("/run/shm/packagit")
 
-    print(tag, "created.")
     return version
+
+
+def create_tag(version):  # pragma: no cover
+    """    Create tag.    """
+    obj = git.Repo()
+    tag = f"v{version}"
+    if tag in obj.tags:  # pragma: no cover
+        raise Exception(f"Tag {tag} already exists!")
+    obj.index.add('setup.py')
+    obj.index.commit('Release')
+    obj.create_tag(tag, message=obj.head.object.message)
+    obj.remotes.origin.push()
+    obj.remotes.origin.push(tag)
+    return tag
