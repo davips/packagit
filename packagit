@@ -40,7 +40,7 @@ if __name__ == "__main__":
         for l in txt:
             if "VERSION = " in l:
                 error = False
-                previous_version = extract_version(l)
+                previous_version = extract_version(l[:-1])
                 version = update_version(major, previous_version)
                 l = f'VERSION = "{version}"\n'
             f.write(l)

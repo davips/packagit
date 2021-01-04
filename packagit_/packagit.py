@@ -42,7 +42,7 @@ def extract_version(txt):
     -------
 
     """
-    return txt.split(" = ")[1][1:-2]
+    return txt.split(" = ")[1][1:-1]
 
 
 def update_version(major, previous_version):
