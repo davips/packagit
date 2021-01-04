@@ -23,8 +23,6 @@
 import datetime
 import shutil
 
-import git
-
 
 def extract_version(txt):
     """
@@ -64,6 +62,7 @@ def update_version(major, previous_version):
     -------
 
     """
+    import git
 
     # Doctest fake repo. Version "0.0912.3" is the example from doctest.
     if previous_version == "0.0912.3":
@@ -88,6 +87,7 @@ def update_version(major, previous_version):
 
 def create_tag(version):  # pragma: no cover
     """    Create tag.    """
+    import git
     obj = git.Repo()
     tag = f"v{version}"
     if tag in obj.tags:  # pragma: no cover
