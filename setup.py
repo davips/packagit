@@ -78,4 +78,4 @@ setuptools.setup(
     scripts=['packagit']
 )
 
-package_dir = {'': 'packagit_'}  # For IDEs like Intellij to recognize the package.
+# package_dir = {'': 'packagit_'}  # For IDEs like Intellij to recognize the package.
