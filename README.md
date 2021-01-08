@@ -10,7 +10,7 @@ Write your first version inside setup.py in the form
 VERSION = "0.2101.0"  # major.YYMM.minor
 ```
 
-Copy the workflow file (release.yml) to .github/workflows of your rpoject repository.
+Copy the workflow file (release.yml) to .github/workflows of your project repository.
 
 Run at the shell prompt
 
