@@ -4,14 +4,27 @@
 # packagit
 Increment version, create and push tag for release on github and pypi
 
-Write your first version inside setup.py in the form
+## Installation
+```bash
+# Set up a virtualenv. 
+python3 -m venv venv
+source venv/bin/activate
+
+# Install from PyPI
+pip install packagit
+```
+
+## Setup
+Write your first version number inside the setup.py of your project in the form:
 
 ```python
 VERSION = "0.2101.0"  # major.YYMM.minor
 ```
 
-Copy the workflow file (release.yml) to .github/workflows of your project repository.
+Copy the workflow file (release.yml) to the .github/workflows folder of your project repository.
+Copy an (empty?) changelog.txt to the root of your project repository.
 
+## Usage
 Run at the shell prompt
 
 ```bash
