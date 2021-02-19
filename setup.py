@@ -25,7 +25,7 @@ import setuptools
 
 NAME = "packagit"
 
-VERSION = "0.2102.15"
+VERSION = "0.2102.16"
 
 AUTHOR = 'Davi Pereira-Santos'
 
